@@ -6,10 +6,8 @@ const ScrollYStyle = ref('');
 watch((y),(newVal)=>{
   if(newVal !== 0){
     ScrollYStyle.value = 'rgba(255, 255, 255, 0.9)'
-    console.log(ScrollYStyle.value)
   } else {
     ScrollYStyle.value = ''
-    console.log(ScrollYStyle.value)
   }
 })
 </script>
@@ -41,3 +39,12 @@ watch((y),(newVal)=>{
   </div>
 </nav>
 </template>
+
+<style scoped>
+.navbar{
+  transition: all 0.3s ease-in;
+}
+.container-fluid{
+  padding: 0 80px;
+}
+</style>
