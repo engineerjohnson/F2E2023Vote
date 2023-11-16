@@ -39,16 +39,16 @@ const startIncrement = () => {
     <div class="container">
       <div class="header" style="height: 811px;">
         <div class="header-text">
-          <img src="src/assets/image/header-text.png" alt="標頭文字" class="mb-4">
+          <img src="../assets/image//header-text.png" alt="標頭文字" class="mb-4">
           <p>我是鬥立翰，堅守正義、追求共融，</p>
           <p>望與人類共同塑造更美好的明天。</p>
           <RouterLink to="" class="btn btn-outline-light text-info rounded-5 py-2 px-3">認識候選人</RouterLink>
         </div>
         <div class="seal">
-          <img src="src/assets/image/seal.png" alt="狗的印章">
+          <img src="../assets/image/seal.png" alt="狗的印章">
         </div>
         <div class="header-image">
-          <img src="src/assets/image/header.png" alt="標頭鬥牛犬">
+          <img src="../assets/image/header.png" alt="標頭鬥牛犬">
         </div>
       </div>
       <div class="introduce row">
@@ -75,7 +75,7 @@ const startIncrement = () => {
           <h2 class="mb-5">最新活動</h2>
           <div class="row">
             <div class="col-4">
-              <img src="src/assets/image/Activity1.png" alt="活動圖1">
+              <img src="../assets/image/Activity1.png" alt="活動圖1">
             </div>
             <div class="col-7">
               <p class="text-info data">12.26</p>
@@ -86,7 +86,7 @@ const startIncrement = () => {
           <div class="w-100 my-4 activity-border"></div>
           <div class="row">
             <div class="col-4">
-              <img src="src/assets/image/Activity2.png" alt="活動圖2">
+              <img src="../assets/image/Activity2.png" alt="活動圖2">
             </div>
             <div class="col-7">
               <p class="text-info data">12.24</p>
@@ -97,7 +97,7 @@ const startIncrement = () => {
           <div class="w-100 my-4 activity-border"></div>
           <div class="row">
             <div class="col-4">
-              <img src="src/assets/image/Activity3.png" alt="活動圖3">
+              <img src="../assets/image/Activity3.png" alt="活動圖3">
             </div>
             <div class="col-7">
               <p class="text-info data">12.20</p>

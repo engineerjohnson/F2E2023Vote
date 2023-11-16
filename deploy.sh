@@ -2,7 +2,7 @@
 set -e
 
 # build
-npm run build-only
+npm run build
 
 # navigate into the build output directory
 cd dist
