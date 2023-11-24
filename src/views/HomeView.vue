@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useWindowScroll } from '@vueuse/core';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination, Autoplay } from 'swiper/modules';
 
+const modules = [Pagination, Autoplay ];
 const { y } = useWindowScroll()
 watch((y),(newVal)=>{
   if(newVal == 300){
@@ -108,12 +113,72 @@ const startIncrement = () => {
         </div>
       </div>
     </div>
+    <div class="candidate-say row">
+      <div class="candidate-bg"></div>
+      <div class="candidate-bg"></div>
+      <div class="col-6 candidate-text">
+        <img src="../assets/image/candidate-say.png" alt="候選人精神答話">
+      </div>
+      <div class="col-6 candidate-image" ></div>
+    </div>
+    <div class="bg-white policy-issue">
+      <div class="container">
+        <h2 class="mb-4 fw-bold">政策議題</h2>
+        <div class="row justify-content-between align-items-center container-content">
+          <div class="col-5 mb-5 policy-one">
+            <p>為毛孩子謀福利！</p>
+            <p>推動寵物醫療保障方案</p>
+            <RouterLink to="" class="btn px-4 py-2 rounded-5">了解更多</RouterLink>
+          </div>
+          <div class="col-5 mb-5 policy-two">
+            <p>打造休閒天堂！</p>
+            <p>推廣寵物休閒與娛樂場所</p>
+            <RouterLink to="" class="btn px-4 py-2 rounded-5">了解更多</RouterLink>
+          </div>
+          <div class="col-5 mb-5 policy-three">
+            <p>讓愛更專業</p>
+            <p>推廣寵物飼養教育</p>
+            <RouterLink to="" class="btn px-4 py-2 rounded-5">了解更多</RouterLink>
+          </div>
+          <div class="col-5 mb-5 policy-four">
+            <p>反對外貌歧視！</p>
+            <p>破除寵物刻板印象</p>
+            <RouterLink to="" class="btn px-4 py-2 rounded-5">了解更多</RouterLink>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="text-center swiper-main">
+        <Swiper
+        :slidesPerView="5"
+        :spaceBetween="10"
+        :loop="true"
+        :autoplay="{ delay: 1000, disableOnInteraction: false }"
+        :pagination="{
+          clickable: true,
+          el: null
+        }"
+        :modules="modules"
+        class="mySwiper"
+        >
+          <SwiperSlide><img src="../assets/image/swiper1.png" alt=""></SwiperSlide>
+          <SwiperSlide><img src="../assets/image/swiper2.png" alt=""></SwiperSlide>
+          <SwiperSlide><img src="../assets/image/swiper3.png" alt=""></SwiperSlide>
+          <SwiperSlide><img src="../assets/image/swiper4.png" alt=""></SwiperSlide>
+          <SwiperSlide><img src="../assets/image/swiper5.png" alt=""></SwiperSlide>
+          <SwiperSlide><img src="../assets/image/swiper6.png" alt=""></SwiperSlide>
+          <SwiperSlide><img src="../assets/image/swiper7.png" alt=""></SwiperSlide>
+        </Swiper>
+      </div>
+    <div class="form">
+    </div>
   </div>
 </template>
 
 <style scoped>
 .body{
   background-color: #D9E8FF;
+  position: relative;
 }
 .header{
   position: relative;
@@ -189,5 +254,81 @@ const startIncrement = () => {
 }
 .activity-border{
   border-bottom: 1px solid black;
+}
+.candidate-say {
+  margin:80px 0px 0px 0px;
+  height: 310px;
+  position: relative;
+  max-width: 100%;
+}
+.candidate-text{
+  z-index: 8;
+  height: 310px;
+  background-color: rgba(239, 239, 239, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.candidate-image{
+  background-image: url('../assets/image/candidate.png');
+  background-size: cover;
+  background-position: center center;
+  z-index: 8;
+  padding: 0;
+}
+.candidate-bg{
+  width: 30%;
+  height: 310px;
+  left: 45%;
+  background:linear-gradient(to right, rgba(239, 239, 239, 1), rgba(239, 239, 239, 0.0));
+  position: absolute;
+  z-index: 9;
+}
+.container-content>div{
+  background-size: cover;
+  background-position: center center;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+}
+.container-content>div p{
+  font-weight: 700;
+  font-size: 22px;
+}
+.container-content>div a{
+  color: #EF6A23;
+  background-color: white;
+}
+.container-content>div a:hover{
+  color: white;
+  background-color: #EF6A23;
+}
+.policy-issue{
+  padding:80px 0px 160px 0;
+}
+.policy-one{
+  background: linear-gradient(0deg,rgba(255, 255, 255, 0.7),rgba(255, 255, 255,.7)),url('../assets/image/policy1.png');
+}
+.policy-two{
+  background: linear-gradient(0deg,rgba(255, 255, 255, 0.7),rgba(255, 255, 255,.7)),url('../assets/image/policy2.png');
+}
+.policy-three{
+  background: linear-gradient(0deg,rgba(255, 255, 255, 0.7),rgba(255, 255, 255,.7)),url('../assets/image/policy3.png');
+}
+.policy-four{
+  background: linear-gradient(0deg,rgba(255, 255, 255, 0.7),rgba(255, 255, 255,.7)),url('../assets/image/policy4.png');
+}
+.swiper-main{
+  position: absolute;
+  width: 100%;
+  height: 238px;
+  top: 73%;
+}
+.form{
+  height: 868px;
 }
 </style>
