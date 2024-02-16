@@ -1,20 +1,20 @@
-import { createRouter, createWebHashHistory  } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import("../views/HomeView.vue")
-  },
-]
+    component: () => import('../views/HomeView.vue')
+  }
+];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  linkActiveClass: "active",
+  linkActiveClass: 'active',
   scrollBehavior() {
     return { top: 0 };
   },
-  routes,
+  routes
 });
 
 export default router;

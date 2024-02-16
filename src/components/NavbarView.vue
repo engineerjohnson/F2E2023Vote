@@ -1,50 +1,58 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { useWindowScroll } from '@vueuse/core';
-const { y } = useWindowScroll()
+const { y } = useWindowScroll();
 const ScrollYStyle = ref('');
-watch((y),(newVal)=>{
-  if(newVal !== 0){
-    ScrollYStyle.value = 'rgba(255, 255, 255, 0.9)'
+watch(y, (newVal) => {
+  if (newVal !== 0) {
+    ScrollYStyle.value = 'rgba(255, 255, 255, 0.9)';
   } else {
-    ScrollYStyle.value = ''
+    ScrollYStyle.value = '';
   }
-})
+});
 </script>
 
 <template>
   <nav class="navbar fixed-top navbar-expand-lg" :style="{ 'background-color': ScrollYStyle }">
-  <div class="container-fluid">
-    <img src="../assets/image/logo.png" alt="logo" height="54" class="ms-2 me-5">
-    <RouterLink to="/" class="me-3 navbar-brand text-info">首頁</RouterLink>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item me-3">
-          <RouterLink to="" class="nav-link text-info">認識候選人</RouterLink>
-        </li>
-        <li class="nav-item me-3">
-          <RouterLink to="" class="nav-link text-info">最新活動</RouterLink>
-        </li>
-        <li class="nav-item me-3">
-          <RouterLink to="" class="nav-link text-info">政策議題</RouterLink>
-        </li>
-        <li class="nav-item me-3">
-          <RouterLink to="" class="nav-link text-info">小額捐款</RouterLink>
-        </li>
-      </ul>
+    <div class="container-fluid">
+      <img src="../assets/image/logo.png" alt="logo" height="54" class="ms-2 me-5" />
+      <RouterLink to="/" class="me-3 navbar-brand text-info">首頁</RouterLink>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item me-3">
+            <RouterLink to="" class="nav-link text-info">認識候選人</RouterLink>
+          </li>
+          <li class="nav-item me-3">
+            <RouterLink to="" class="nav-link text-info">最新活動</RouterLink>
+          </li>
+          <li class="nav-item me-3">
+            <RouterLink to="" class="nav-link text-info">政策議題</RouterLink>
+          </li>
+          <li class="nav-item me-3">
+            <RouterLink to="" class="nav-link text-info">小額捐款</RouterLink>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 </template>
 
 <style scoped>
-.navbar{
+.navbar {
   transition: all 0.3s ease-in;
 }
-.container-fluid{
+.container-fluid {
   padding: 0 80px;
 }
 </style>
