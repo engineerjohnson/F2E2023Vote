@@ -5,6 +5,32 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper/modules';
+import { Form, Field, defineRule, configure } from 'vee-validate';
+import { required, email, integer } from '@vee-validate/rules';
+import { localize, setLocale } from '@vee-validate/i18n';
+import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
+
+/**
+ * veeVaildate註冊
+ */
+configure({
+  generateMessage: localize({ zh_TW: zhTW }),
+  validateOnInput: true
+});
+setLocale('zh_TW');
+/**
+ * veeVaildate註冊rules
+ */
+defineRule('required', required);
+defineRule('email', email);
+defineRule('integer', integer);
+defineRule('phone_tw', (value: string) => {
+  const regex = /^(09)[0-9]{8}$/;
+  if (!regex.test(value)) {
+    return '請輸入09開頭的手機號碼';
+  }
+  return true;
+});
 
 const modules = [Pagination, Autoplay];
 
@@ -36,18 +62,20 @@ const startIncrement = () => {
    *
    */
   let increment = targetNumber / (duration / 16); //算出每秒要加多少值 例:987655873 / (15000 / 16) = 1053499
-  currentNumber.value += Number(increment.toFixed(0)); //四捨五入 
+  currentNumber.value += Number(increment.toFixed(0)); //四捨五入
   formattedNumber.value = currentNumber.value.toLocaleString(); //轉成字串
   if (currentNumber.value < targetNumber) {
     //告訴瀏覽器我們要產生動畫效果
-    console.log(currentNumber.value)
-    console.log(formattedNumber.value)
     window.requestAnimationFrame(startIncrement);
   } else {
     //currentNumber.value = targetNumber時 就停止是最終值
     formattedNumber.value = targetNumber.toLocaleString(); //轉成字串
   }
 };
+
+function submitForm(data) {
+  console.log(data);
+}
 </script>
 
 <template>
@@ -160,12 +188,12 @@ const startIncrement = () => {
             <p>推廣寵物休閒與娛樂場所</p>
             <RouterLink to="" class="btn px-4 py-2 rounded-5">了解更多</RouterLink>
           </div>
-          <div class="col-5 mb-5 policy-three">
+          <div class="col-5 policy-three">
             <p>讓愛更專業</p>
             <p>推廣寵物飼養教育</p>
             <RouterLink to="" class="btn px-4 py-2 rounded-5">了解更多</RouterLink>
           </div>
-          <div class="col-5 mb-5 policy-four">
+          <div class="col-5 policy-four">
             <p>反對外貌歧視！</p>
             <p>破除寵物刻板印象</p>
             <RouterLink to="" class="btn px-4 py-2 rounded-5">了解更多</RouterLink>
@@ -195,7 +223,75 @@ const startIncrement = () => {
         <SwiperSlide><img src="../assets/image/swiper7.png" alt="" /></SwiperSlide>
       </Swiper>
     </div>
-    <div class="form"></div>
+    <div class="form">
+      <h3 class="fw-bold mb-4">民眾服務信箱</h3>
+      <p class="fw-bold mb-2">您的聲音，是我們的行動！</p>
+      <p>
+        今天的收容所不再是一片寂靜。為了讓更多人認識到這裡的毛孩子，我們舉辦了一場前所未有的「模特兒走秀」！
+      </p>
+      <Form class="w-100" @submit="submitForm">
+        <div class="formBody">
+          <Field name="name" label="姓名" v-slot="{ field, errorMessage }" rules="required">
+            <label for="">姓名</label>
+            <div class="formInput">
+              <input v-bind="field" type="text" placeholder="請輸入姓名" class="p-2 border-0" />
+              <span class="text-danger ms-2">{{ errorMessage }}</span>
+            </div>
+          </Field>
+        </div>
+        <div class="formBody">
+          <Field name="email" label="Email" v-slot="{ field, errorMessage }" rules="required|email">
+            <label for="">Email</label>
+            <div class="formInput">
+              <input v-bind="field" type="text" placeholder="abc@gmail.com" class="p-2 border-0" />
+              <span class="text-danger ms-2">{{ errorMessage }}</span>
+            </div>
+          </Field>
+        </div>
+        <div class="formBody">
+          <Field
+            name="phone"
+            label="手機"
+            v-slot="{ field, errorMessage }"
+            rules="required|phone_tw"
+          >
+            <label for="">手機</label>
+            <div class="formInput">
+              <input v-bind="field" type="tel" placeholder="0912345678" class="p-2 border-0" />
+              <span class="text-danger ms-2">{{ errorMessage }}</span>
+            </div>
+          </Field>
+        </div>
+        <div class="formBody">
+          <Field name="text" label="建言" v-slot="{ field, errorMessage }" rules="required">
+            <label for="">您的建言</label>
+            <div class="formInput w-100">
+              <textarea
+                v-bind="field"
+                placeholder="請您的建言或問題"
+                class="p-2 border-0 w-50"
+                rows="3"
+              ></textarea>
+              <span class="text-danger ms-2">{{ errorMessage }}</span>
+            </div>
+          </Field>
+        </div>
+        <button type="submit" class="btn btn-info rounded-5 px-3">送出意見</button>
+      </Form>
+    </div>
+    <footer class="row align-items-center justify-content-between w-100 m-0">
+      <div class="col-5">
+        2023 鬥立翰 版權所有。<br>
+        <span class="d-inline-block">辦公室地址｜毛孩區，毛茸茸大道99號，狗狗大厦99樓</span> <span class="d-inline-block">Tel｜(02)888-5678</span> <span class="d-inline-block">Email｜dogoffice@doglihan.tw</span>
+      </div>
+      <ul class="d-flex justify-content-between col-5">
+        <li>首頁</li>
+        <li>認識候選人</li>
+        <li>最新活動</li>
+        <li>政策議題</li>
+        <li>小額捐款</li>
+      </ul>
+    </footer>
   </div>
 </template>
 
@@ -335,7 +431,7 @@ const startIncrement = () => {
   background-color: #ef6a23;
 }
 .policy-issue {
-  padding: 80px 0px 160px 0;
+  padding: 80px 0px 200px 0;
 }
 .policy-one {
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
@@ -354,12 +450,34 @@ const startIncrement = () => {
     url('../assets/image/policy4.png');
 }
 .swiper-main {
-  position: absolute;
   width: 100%;
   height: 238px;
-  top: 73%;
+  margin-top: -120px;
 }
 .form {
   height: 868px;
+  width: 50%;
+  margin: auto;
+  margin-top: 60px;
+}
+.form .formBody {
+  position: relative;
+  margin: 30px;
+}
+.form .formBody .formInput {
+  position: absolute;
+  left: 100px;
+  top: 0;
+}
+Form > button {
+  float: right;
+  margin-top: 80px;
+}
+ul{
+  list-style: none;
+}
+footer{
+  padding: 32px 40px;
+  background-color: #ffff;
 }
 </style>
