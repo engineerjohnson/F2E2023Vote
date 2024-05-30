@@ -75,7 +75,7 @@ const startIncrement = () => {
   }
 };
 
-function submitForm(data) {
+function submitForm(data :any) { //TODO:先用any
   console.log(data);
 }
 </script>
