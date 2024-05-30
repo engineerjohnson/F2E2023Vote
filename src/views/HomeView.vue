@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { useWindowScroll } from '@vueuse/core';
+import { useWindowScroll, useWindowSize } from '@vueuse/core';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -9,6 +9,8 @@ import { Form, Field, defineRule, configure } from 'vee-validate';
 import { required, email, integer } from '@vee-validate/rules';
 import { localize, setLocale } from '@vee-validate/i18n';
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
+
+const { width, height } = useWindowSize();
 
 /**
  * veeVaildate註冊
@@ -80,23 +82,30 @@ function submitForm(data) {
 
 <template>
   <div class="body">
-    <div class="container">
-      <div class="header" style="height: 811px">
-        <div class="header-text">
+    <div :class="{ container: width >= 1200 }">
+      <div class="mb-3 row mx-0">
+        <div class="header-text col-xl-6">
           <img src="../assets/image//header-text.png" alt="標頭文字" class="mb-4" />
           <p>我是鬥立翰，堅守正義、追求共融，</p>
           <p>望與人類共同塑造更美好的明天。</p>
-          <RouterLink to="" class="btn btn-outline-light text-info rounded-5 py-2 px-3"
-            >認識候選人</RouterLink
-          >
+          <RouterLink to="" class="btn btn-outline-light text-info rounded-5 py-2 px-3">
+            認識候選人
+          </RouterLink>
+          <div class="seal" v-show="width >= 1200"></div>
         </div>
-        <div class="seal">
-          <img src="../assets/image/seal.png" alt="狗的印章" />
-        </div>
-        <div class="header-image">
-          <img src="../assets/image/header.png" alt="標頭鬥牛犬" />
+        <div class="col-xl-6 px-0 position-relative">
+          <div class="header-bg"></div>
+          <img
+            class="header-image"
+            width="100%"
+            src="../assets/image/headerDog.png"
+            alt="標頭鬥牛犬"
+          />
+          <img v-show="width < 1200" class="header-seal" src="../assets/image/seal2.png" alt="狗腳印">
         </div>
       </div>
+    </div>
+    <div class="container">
       <div class="introduce row">
         <div class="col-6 me-4">
           <div class="donate bg-light rounded-4 w-100">
@@ -105,12 +114,14 @@ function submitForm(data) {
               <p class="text-warning mt-4 mb-1">您的小筆捐款，</p>
               <p class="text-warning">是每隻毛孩未來的大大動力！</p>
               <span>目前小額贊助總金額：{{ formattedNumber }}</span>
-              <RouterLink to="" class="btn btn-outline-warning text-light rounded-5 py-2 px-4"
-                >我要捐款</RouterLink
-              >
               <div class="donate-image">
-                <img src="../assets/image/donate-img.png" alt="logo" />
+                <img class="w-100" src="../assets/image/donate-img.png" alt="logo" />
               </div>
+            </div>
+            <div>
+              <RouterLink to="" class="btn btn-outline-warning text-light rounded-5 py-2 px-4">
+                我要捐款
+              </RouterLink>
             </div>
           </div>
           <div>
@@ -281,8 +292,10 @@ function submitForm(data) {
     </div>
     <footer class="row align-items-center justify-content-between w-100 m-0">
       <div class="col-5">
-        2023 鬥立翰 版權所有。<br>
-        <span class="d-inline-block">辦公室地址｜毛孩區，毛茸茸大道99號，狗狗大厦99樓</span> <span class="d-inline-block">Tel｜(02)888-5678</span> <span class="d-inline-block">Email｜dogoffice@doglihan.tw</span>
+        2023 鬥立翰 版權所有。<br />
+        <span class="d-inline-block">辦公室地址｜毛孩區，毛茸茸大道99號，狗狗大厦99樓</span>
+        <span class="d-inline-block">Tel｜(02)888-5678</span>
+        <span class="d-inline-block">Email｜dogoffice@doglihan.tw</span>
       </div>
       <ul class="d-flex justify-content-between col-5">
         <li>首頁</li>
@@ -300,15 +313,25 @@ function submitForm(data) {
   background-color: #d9e8ff;
   position: relative;
 }
-.header {
-  position: relative;
+.header-bg {
+  background-color: #6386d1;
+  border-radius: 0 0 45px 45px;
+  padding: 0;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
 }
 .header-image {
   float: right;
+  border-radius: 0 0 45px 45px;
+  position: relative;
+  z-index: 10;
 }
 .header-text {
-  position: absolute;
-  top: 280px;
+  margin: auto;
+  position: relative;
+  z-index: 99;
 }
 .header-text p {
   font-weight: 700;
@@ -317,9 +340,11 @@ function submitForm(data) {
   font-weight: 500;
 }
 .seal {
+  background-image: url('../assets/image/seal.png');
+  width: 197px;
+  height: 197px;
   position: absolute;
-  top: 574px;
-  left: 480px;
+  right: -47px;
 }
 .introduce {
   margin-top: 80px;
@@ -341,26 +366,16 @@ function submitForm(data) {
 .donate {
   height: 35vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
   position: relative;
   margin-bottom: 40px;
-}
-.donate > div {
-  margin: 0 40px;
 }
 .donate-image {
   position: absolute;
   top: 5%;
   left: 50%;
   z-index: 1;
-}
-.donate a {
-  float: right;
-  position: absolute;
-  top: 60%;
-  left: 75%;
-  z-index: 2;
 }
 .activity p:not(.activity-title) {
   margin-bottom: 0;
@@ -473,11 +488,41 @@ Form > button {
   float: right;
   margin-top: 80px;
 }
-ul{
+ul {
   list-style: none;
 }
-footer{
+footer {
   padding: 32px 40px;
   background-color: #ffff;
+}
+@media (max-width: 1199px) {
+  .body {
+    padding-top: 80px;
+  }
+  .seal {
+    position: static;
+  }
+  .header-text {
+    padding: 0 48px;
+  }
+  .header-bg {
+    width: 90%;
+    height: 45%;
+    border-radius: 0 45px 0 0;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+  }
+  .header-image {
+    position: relative;
+    border-radius: 0;
+    z-index: 2;
+  }
+  .header-seal{
+    position: absolute;
+    z-index: 3;
+    bottom: 5%;
+    left: 15%;
+  }
 }
 </style>

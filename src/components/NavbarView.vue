@@ -15,8 +15,9 @@ watch(y, (newVal) => {
 <template>
   <nav class="navbar fixed-top navbar-expand-lg" :style="{ 'background-color': ScrollYStyle }">
     <div class="container-fluid">
-      <img src="../assets/image/logo.png" alt="logo" height="54" class="ms-2 me-5" />
-      <RouterLink to="/" class="me-3 navbar-brand text-info">首頁</RouterLink>
+      <RouterLink to="/" class="me-3 navbar-brand text-info">
+        <img src="../assets/image/logo.png" alt="logo" height="54" class="me-5" />
+      </RouterLink>
       <button
         class="navbar-toggler"
         type="button"
